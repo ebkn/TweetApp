@@ -8,19 +8,58 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    @IBOutlet weak var tableView: UITableView!
+
     var backgroundTweetView: UIView!
     var textField: UITextField!
     var textView: UITextView!
 
+    var tweetArray: Array<Dictionary<String, String>> = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+        tableView.delegate = self
+        tableView.dataSource = self
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tweetArray.count
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return CGFloat(100)
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "myCell")!
+        let tweet = tweetArray[indexPath.row]
+
+        let nameLabel = cell.viewWithTag(1) as! UILabel
+        nameLabel.text = tweet["name"]
+        nameLabel.font = UIFont(name: "HirakakuProN-W6", size: 13)
+
+        let textLabel = cell.viewWithTag(2) as! UILabel
+        textLabel.text = tweet["text"]
+        textLabel.font = UIFont(name: "HirakakuProN-W6", size: 18)
+
+        let timeLabel = cell.viewWithTag(3) as! UILabel
+        timeLabel.text = tweet["time"]
+        timeLabel.font = UIFont(name: "HirakakuProN-W3", size: 10)
+        timeLabel.textColor = UIColor.gray
+
+        let myImageView = cell.viewWithTag(4) as! UIImageView
+        myImageView.image = UIImage(named: "pug.png")
+        myImageView.layer.cornerRadius = 3
+        myImageView.layer.masksToBounds = true
+
+        return cell
     }
 
     @IBAction func tapTweetButton(_ sender: Any) {
@@ -53,13 +92,28 @@ class ViewController: UIViewController {
         backgroundTweetView.removeFromSuperview()
     }
 
-    func tappedSubmiteButton(_ sender: AnyObject) {
+    func tappedSubmitButton(_ sender: AnyObject) {
         let name = textField.text!
-        let tweet = textView.text!
+        let text = textView.text!
+
+        var tweetDictionary: Dictionary<String, String> = [:]
+        tweetDictionary["name"] = name
+        tweetDictionary["text"] = text
+        tweetDictionary["time"] = getCurrentTime()
+        tweetArray.insert(tweetDictionary, at: 0)
 
         backgroundTweetView.removeFromSuperview()
         textField.text = ""
         textView.text = ""
+        tableView.reloadData()
+    }
+
+    func getCurrentTime() -> String {
+        let now = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd' 'HH:mm:ss"
+
+        return formatter.string(from: now)
     }
 
     func makeBackgroundTweetView() -> UIView {
@@ -131,7 +185,7 @@ class ViewController: UIViewController {
         submitButton.backgroundColor = UIColor(red: 0.14, green: 0.3, blue: 0.68, alpha: 1.0)
         submitButton.setTitleColor(UIColor.white, for: UIControlState.normal)
         submitButton.layer.cornerRadius = 7
-        submitButton.addTarget(self, action: #selector(ViewController.tappedSubmiteButton(_:)), for: UIControlEvents.touchUpInside)
+        submitButton.addTarget(self, action: #selector(ViewController.tappedSubmitButton(_:)), for: UIControlEvents.touchUpInside)
 
         return submitButton
     }
