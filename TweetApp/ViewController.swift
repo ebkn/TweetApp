@@ -22,6 +22,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.estimatedRowHeight = 78
+        tableView.rowHeight = UITableViewAutomaticDimension
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,10 +33,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tweetArray.count
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return CGFloat(100)
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -48,6 +46,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let textLabel = cell.viewWithTag(2) as! UILabel
         textLabel.text = tweet["text"]
         textLabel.font = UIFont(name: "HirakakuProN-W6", size: 18)
+        textLabel.numberOfLines = 0
 
         let timeLabel = cell.viewWithTag(3) as! UILabel
         timeLabel.text = tweet["time"]
@@ -93,19 +92,25 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     func tappedSubmitButton(_ sender: AnyObject) {
-        let name = textField.text!
-        let text = textView.text!
+        if (textField.text!.isEmpty) || (textView.text!.isEmpty) {
+            let alertController = UIAlertController(title: "Error", message: "name or text is empty.", preferredStyle: UIAlertControllerStyle.alert)
+            let action = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)
+            alertController.addAction(action)
+            present(alertController, animated: true, completion: nil)
+        } else {
+            let name = textField.text!
+            let text = textView.text!
 
-        var tweetDictionary: Dictionary<String, String> = [:]
-        tweetDictionary["name"] = name
-        tweetDictionary["text"] = text
-        tweetDictionary["time"] = getCurrentTime()
-        tweetArray.insert(tweetDictionary, at: 0)
-
-        backgroundTweetView.removeFromSuperview()
-        textField.text = ""
-        textView.text = ""
-        tableView.reloadData()
+            var tweetDictionary: Dictionary<String, String> = [:]
+            tweetDictionary["name"] = name
+            tweetDictionary["text"] = text
+            tweetDictionary["time"] = getCurrentTime()
+            tweetArray.insert(tweetDictionary, at: 0)
+            backgroundTweetView.removeFromSuperview()
+            textField.text = ""
+            textView.text = ""
+            tableView.reloadData()
+        }
     }
 
     func getCurrentTime() -> String {
