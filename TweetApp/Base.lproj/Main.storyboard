@@ -58,7 +58,7 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="header.png" translatesAutoresizingMaskIntoConstraints="NO" id="3xY-19-6HN">
                                 <rect key="frame" x="0.0" y="60" width="414" height="200"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="VxB-er-Csc"/>
+                                    <constraint firstAttribute="height" constant="200" id="G8g-5G-a9l"/>
                                 </constraints>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="132" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hjM-FO-bBF">
@@ -69,7 +69,7 @@
                                         <rect key="frame" x="0.0" y="28" width="374" height="132"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dl5-oW-4gD" id="iNO-5U-Td9">
-                                            <rect key="frame" x="0.0" y="0.0" width="374" height="132"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="131.66666666666666"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" tag="4" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Tor-xi-Kti">
@@ -123,23 +123,53 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eHE-tn-i1Z">
+                                <rect key="frame" x="0.0" y="60" width="414" height="210"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pug.png" translatesAutoresizingMaskIntoConstraints="NO" id="YB8-rf-j8S">
+                                        <rect key="frame" x="164.66666666666666" y="35" width="85" height="85"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="85" id="qPH-em-IlN"/>
+                                            <constraint firstAttribute="height" constant="85" id="tha-fW-GAe"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="パグ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XBM-jB-uQT">
+                                        <rect key="frame" x="189.66666666666666" y="130" width="35" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="YB8-rf-j8S" firstAttribute="top" secondItem="eHE-tn-i1Z" secondAttribute="top" constant="35" id="2DI-Tv-peQ"/>
+                                    <constraint firstItem="XBM-jB-uQT" firstAttribute="top" secondItem="YB8-rf-j8S" secondAttribute="bottom" constant="10" id="Jxd-P6-h1O"/>
+                                    <constraint firstItem="YB8-rf-j8S" firstAttribute="centerX" secondItem="eHE-tn-i1Z" secondAttribute="centerX" id="Ma2-g2-gWP"/>
+                                    <constraint firstItem="XBM-jB-uQT" firstAttribute="centerX" secondItem="eHE-tn-i1Z" secondAttribute="centerX" id="wx5-D2-raH"/>
+                                </constraints>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="hjM-FO-bBF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="T4g-Vr-6bP"/>
+                            <constraint firstItem="eHE-tn-i1Z" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="WZM-r5-QzB"/>
                             <constraint firstAttribute="trailing" secondItem="3xY-19-6HN" secondAttribute="trailing" id="YMt-Sb-L9h"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hjM-FO-bBF" secondAttribute="trailing" id="YUY-Js-Q7H"/>
                             <constraint firstItem="bnF-9H-0G3" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="eNy-eM-z8i"/>
+                            <constraint firstItem="eHE-tn-i1Z" firstAttribute="top" secondItem="bnF-9H-0G3" secondAttribute="bottom" id="eY7-wZ-Mui"/>
                             <constraint firstItem="3xY-19-6HN" firstAttribute="top" secondItem="bnF-9H-0G3" secondAttribute="bottom" id="faw-tr-HmF"/>
                             <constraint firstItem="bnF-9H-0G3" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="i6k-IF-DWJ"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="hjM-FO-bBF" secondAttribute="bottom" constant="10" id="kgH-WA-w8Y"/>
                             <constraint firstItem="3xY-19-6HN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="nUW-xw-cMu"/>
                             <constraint firstAttribute="trailing" secondItem="bnF-9H-0G3" secondAttribute="trailing" id="p7N-Fp-qPF"/>
                             <constraint firstItem="hjM-FO-bBF" firstAttribute="top" secondItem="3xY-19-6HN" secondAttribute="bottom" constant="10" id="qwg-bP-etI"/>
+                            <constraint firstItem="hjM-FO-bBF" firstAttribute="top" secondItem="eHE-tn-i1Z" secondAttribute="bottom" id="tDt-2c-vKu"/>
                             <constraint firstItem="bnF-9H-0G3" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="tfX-Fm-Wkt"/>
+                            <constraint firstAttribute="trailing" secondItem="eHE-tn-i1Z" secondAttribute="trailing" id="zqx-ew-Anx"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="profileImageView" destination="YB8-rf-j8S" id="dpJ-QI-BGY"/>
+                        <outlet property="scrollView" destination="eHE-tn-i1Z" id="rgj-DV-y54"/>
                         <outlet property="tableView" destination="hjM-FO-bBF" id="7I4-6c-jnm"/>
                     </connections>
                 </viewController>
@@ -151,5 +181,6 @@
     <resources>
         <image name="header.png" width="1552" height="962"/>
         <image name="pencil.png" width="32" height="32"/>
+        <image name="pug.png" width="790" height="730"/>
     </resources>
 </document>

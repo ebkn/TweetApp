@@ -8,7 +8,9 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource {
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
 
     var backgroundTweetView: UIView!
@@ -20,6 +22,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        scrollView.contentSize = CGSize(width: self.view.frame.width * 2, height: scrollView.frame.height)
+        scrollView.isPagingEnabled = true
+        setProfileImage()
+        let profileLabel = makeProfileLabel()
+        scrollView.addSubview(profileLabel)
+        scrollView.delegate = self
+
         tableView.delegate = self
         tableView.dataSource = self
         tableView.estimatedRowHeight = 78
@@ -29,6 +38,30 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+
+    func setProfileImage() {
+        profileImageView.layer.cornerRadius = 5
+        profileImageView.layer.borderWidth = 2
+        profileImageView.layer.borderColor = UIColor.white.cgColor
+    }
+
+    func makeProfileLabel() -> UILabel {
+        let profileLabel = UILabel()
+        profileLabel.frame.size = CGSize(width: 200, height: 100)
+        profileLabel.center.x = self.view.frame.width * 3 / 2
+        profileLabel.center.y = scrollView.center.y - 64
+        profileLabel.text = "こんにちは。パグです。"
+        profileLabel.font = UIFont(name: "HirakakuProN-W6", size: 13)
+        profileLabel.textColor = UIColor.white
+        profileLabel.textAlignment = NSTextAlignment.center
+        profileLabel.numberOfLines = 0
+
+        return profileLabel
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: scrollView.contentOffset.x * 0.6 / self.view.frame.width)
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
